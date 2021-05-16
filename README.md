@@ -6,6 +6,10 @@
 
 This is a HTML 5 video component with chapters support made for React. It does not support subtitles, yet.
 
+## Screenshot
+
+![alt text](https://raw.githubusercontent.com/rogersampaio/react-video-chapters/master/example/public/react-video-chapters-screenshot.png?raw=true)
+
 ## Install
 
 ```bash
