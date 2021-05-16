@@ -15,12 +15,12 @@ npm install --save react-video-chapters
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-video-chapters'
+import ReactVideoChapters from 'react-video-chapters'
 import 'react-video-chapters/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <ReactVideoChapters />
   }
 }
 ```

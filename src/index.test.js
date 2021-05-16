@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { ReactVideoChapters } from '.'
 
-describe('ExampleComponent', () => {
+describe('ReactVideoChapters', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(ReactVideoChapters).toBeTruthy()
   })
 })

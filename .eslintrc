@@ -4,8 +4,7 @@
     "standard",
     "standard-react",
     "plugin:prettier/recommended",
-    "prettier/standard",
-    "prettier/react"
+    "prettier"
   ],
   "env": {
     "node": true
@@ -19,7 +18,7 @@
   },
   "settings": {
     "react": {
-      "version": "16"
+      "version": "17"
     }
   },
   "rules": {
@@ -27,6 +26,7 @@
     "react/prop-types": 0,
     "react/jsx-handler-names": 0,
     "react/jsx-fragments": 0,
+    "react/jsx-uses-react": 1,
     "react/no-unused-prop-types": 0,
     "import/export": 0
   }
