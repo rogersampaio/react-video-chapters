@@ -9,12 +9,41 @@ export const ReactVideoChapters = ({
   onPlay,
   onEnded,
   onTimeUpdate,
+  title,
   webvttChaptersUrl,
+  subtitles,
   crossOrigin,
   style
 }) => {
+  const webvttSubtitles = []
+
   function displayChapters(e) {
     const videoElement = e.target
+
+    function hideControls() {
+      if (videoElement.paused) return
+      videoElement.parentElement.querySelector('.controls').style.display =
+        'none'
+    }
+
+    videoElement.addEventListener(
+      'mouseover',
+      function () {
+        videoElement.parentElement.querySelector('.controls').style.display =
+          'block'
+      },
+      false
+    )
+
+    videoElement.addEventListener(
+      'mouseleave',
+      function (e) {
+        if (e?.relatedTarget?.localName === 'li') return
+        hideControls()
+      },
+      false
+    )
+
     const textTrack = e.target.querySelector('track').track
     if (
       e.target.querySelector('track').readyState === 2 &&
@@ -25,18 +54,44 @@ export const ReactVideoChapters = ({
         for (let i = 0; i < textTrack.cues.length; ++i) {
           const liElement = document.createElement('li')
           const aElement = document.createElement('a')
+          const liMarker = document.createElement('li')
+          const spanTooltip = document.createElement('span')
+          const chapterName = textTrack.cues[i].text
 
+          liMarker.classList.add('tooltip')
+          spanTooltip.classList.add('tooltiptext')
+          spanTooltip.classList.add('tooltip-top')
+
+          spanTooltip.innerHTML = chapterName
+
+          const percentage =
+            (textTrack.cues[i].startTime / videoElement.duration) * 100
+          liMarker.style.marginLeft = percentage + '%'
+
+          liMarker.setAttribute('value', textTrack.cues[i].startTime)
           aElement.setAttribute('id', textTrack.cues[i].startTime)
           aElement.setAttribute('tabindex', '0')
-          aElement.appendChild(document.createTextNode(textTrack.cues[i].text))
+
+          aElement.appendChild(document.createTextNode(chapterName))
           liElement.appendChild(aElement)
+          liMarker.appendChild(spanTooltip)
           e.target.parentElement
             .querySelector('.chapterList')
             .appendChild(liElement)
+          videoElement.parentElement
+            .querySelector('.controls')
+            .appendChild(liMarker)
           aElement.addEventListener(
             'click',
             function () {
               videoElement.currentTime = this.id
+            },
+            false
+          )
+          liMarker.addEventListener(
+            'click',
+            function () {
+              videoElement.currentTime = this.value
             },
             false
           )
@@ -63,10 +118,24 @@ export const ReactVideoChapters = ({
     }
   }
 
+  ;(subtitles || []).forEach((element, i) => {
+    webvttSubtitles.push(
+      <track
+        key={i}
+        label={element.label}
+        kind='subtitles'
+        srcLang={element.srcLang}
+        src={element.url}
+        default={element.default}
+      ></track>
+    )
+  })
+
   return (
     <figure className={styleSCSS.videotrackcontainer} style={style}>
       <video
         controls
+        controlsList='nodownload'
         onPause={onPause}
         onPlay={onPlay}
         onEnded={onEnded}
@@ -74,13 +143,18 @@ export const ReactVideoChapters = ({
         key={url}
         crossOrigin={crossOrigin}
         onLoadedMetadata={displayChapters}
+        title={title?.value ? title.value : ''}
       >
         <source src={url} type={type} />
         <track kind='chapters' src={webvttChaptersUrl} default />
+        {webvttSubtitles}
       </video>
-      <figcaption role='menu' aria-label='Message Log'>
-        <ol className='chapterList' />
-      </figcaption>
+      <ul className='controls' data-state='hidden'></ul>
+      {webvttChaptersUrl && (
+        <figcaption role='menu' aria-label='Message Log'>
+          <ol className='chapterList'></ol>
+        </figcaption>
+      )}
     </figure>
   )
 }
@@ -88,9 +162,3 @@ export const ReactVideoChapters = ({
 ReactVideoChapters.propTypes = {
   element: PropTypes.objectOf(PropTypes.any)
 }
-
-// export default ReactVideoChapters
-
-// export const ExampleComponent = ({ text }) => {
-//   return <div className={styles.test}>Example Component: {text}</div>
-// }
