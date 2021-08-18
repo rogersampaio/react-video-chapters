@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-video-chapters.svg)](https://www.npmjs.com/package/react-video-chapters) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-This is a HTML 5 video component with WebVTT Chapters ans Subtitles support made for React.
+This is a HTML 5 video component with WebVTT Chapters and Subtitles support made for React.
 
 ## Screenshot
 
