@@ -51,6 +51,7 @@
   ],
   "dependencies": {
     "node-sass": "^7.0.1",
+    "postcss": "8.4.6",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.4.0"
