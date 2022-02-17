@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styleSCSS from './styles.module.scss'
 
-export const ReactVideoChapters = ({
+const ReactVideoChapters = ({
   url,
   type,
   onPause,
@@ -158,6 +158,8 @@ export const ReactVideoChapters = ({
     </figure>
   )
 }
+
+export default ReactVideoChapters;
 
 ReactVideoChapters.propTypes = {
   element: PropTypes.objectOf(PropTypes.any)

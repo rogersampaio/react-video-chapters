@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ReactVideoChapters } from 'react-video-chapters'
+import ReactVideoChapters from 'react-video-chapters'
 import 'react-video-chapters/dist/index.css'
 
 // 'Big Buck Bunny' licensed under CC 3.0 by the Blender foundation.Hosted by archive.org
